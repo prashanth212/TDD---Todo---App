@@ -4,27 +4,42 @@
   <meta charset="UTF-8">
   <script src="node_modules/angular/angular.min.js"></script>
   <script src="src/app.js"></script>
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet/less" type="text/css" href="src/styles/todo.less">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
   <title>Todo List</title>
 </head>
-<body ng-app="myApp" ng-controller="todoCtrl">
+<body ng-app="myApp" ng-controller="todoCtrl" class="todo-app">
 
-<h2>My Todo List</h2>
+<header>
+  <h2 class="header-title">My Todo List</h2>
+</header>
 
-<form ng-submit="todoAdd()">
-  <input type="text" ng-model="todoInput" size="50" placeholder="Add New">
-  <input type="submit" value="Add New">
-</form>
+<section>
+  <div class="row">
+    <input class="todo-field edit" type="text" ng-model="todoInput" size="50" placeholder="Add New" autofocus>
+    <button class="btn btn-primary todo-add" ng-click="todoAdd()">Add Todo</button>
+  </div>
 
-<br>
+  <br>
 
-<div ng-repeat="x in todoList">
-  <input type="checkbox" ng-model="x.done">
-  <span ng-bind="x.todoText"></span>
+  <ul>
+    <li ng-repeat="todo in todoList" class="list-unstyled todo-task">
+      <input ng-model="todo.done" type="checkbox">
+      {{todo.taskName}}
+    </li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    <button class="btn btn-danger" ng-click="remove()">Remove marked</button>
+  </p>
+</footer>
+
+<div class="debug">
+  <p class="text-info">{{ todoList | json}}</p>
 </div>
-
-<p>
-  <button ng-click="remove()">Remove marked</button>
-</p>
 
 
 </body>
